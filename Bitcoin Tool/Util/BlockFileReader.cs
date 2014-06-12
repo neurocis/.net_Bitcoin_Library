@@ -4,6 +4,10 @@ using Bitcoin_Tool.Structs;
 
 namespace Bitcoin_Tool.Util
 {
+
+    /// <summary>
+    /// BitCoin BlockChain datafile(s) reader functions
+    /// </summary>
     public class BlockFileReader
     {
 
