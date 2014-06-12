@@ -100,7 +100,7 @@ namespace Bitcoin_Tool.Util
         /// </remarks>
         private void InitBlockFileReader(String file, String path)
         {
-            
+
             blockFileNum = 0;
             _blockFilePath = path;
 
@@ -120,12 +120,41 @@ namespace Bitcoin_Tool.Util
 
         }
 
-        /// <summary>
+         /// <summary>
         /// Reads a block disk into the <seealso cref="Block_Disk">Block_Disk</seealso> structure from the active filestream and opens the next blockfile.
         /// </summary>
         /// <returns>A <seealso cref="Block_Disk"/>Block_Disk</seealso> structure containing the contents of the blockfile.</returns>
-        public Block_Disk getNext()
+       public Block_Disk getNext()
         {
+            return getNext(String.Empty, String.Empty);
+        }
+
+        /// <summary>
+        /// Reads a block disk into the <seealso cref="Block_Disk">Block_Disk</seealso> structure from the active filestream and opens the next blockfile.
+        /// </summary>
+        /// <param name="file">Name of the blockchain datafile.</param>
+        /// <returns>A <seealso cref="Block_Disk"/>Block_Disk</seealso> structure containing the contents of the blockfile.</returns>
+        public Block_Disk getNext(String file)
+        {
+            return getNext(file, String.Empty);
+        }
+
+        /// <summary>
+        /// Reads a block disk into the <seealso cref="Block_Disk">Block_Disk</seealso> structure from the active filestream and opens the next blockfile.
+        /// </summary>
+        /// <param name="file">Name of the blockchain datafile.</param>
+        /// <param name="path">Location of the blockchain datafile(s).</param>
+        /// <returns>A <seealso cref="Block_Disk"/>Block_Disk</seealso> structure containing the contents of the blockfile.</returns>
+        /// <remarks>
+        /// Pass an empty String or null value to initialize the file or path value with the defaults.
+        /// </remarks>
+        public Block_Disk getNext(String file, String path)
+        {
+            if (String.IsNullOrWhiteSpace(file))
+                file = _blockFileName;
+            if (String.IsNullOrWhiteSpace(path))
+                path = _blockFilePath;
+
             while (_fileStream.Position < _fileStream.Length)
             {
                 Block_Disk _block;
@@ -137,7 +166,7 @@ namespace Bitcoin_Tool.Util
                     try
                     {
                         _fileStream.Close();
-                        String _fullPath = System.IO.Path.Combine(_blockFilePath, _blockFileName);
+                        String _fullPath = System.IO.Path.Combine(path, file);
                         _fileStream = new FileStream(_fullPath, FileMode.Open);
                     }
                     catch (FileNotFoundException)
