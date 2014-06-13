@@ -6,7 +6,7 @@ using System.Net;
 using System.IO;
 using System.Net.Sockets;
 
-namespace Bitcoin_Tool.Structs.Net
+namespace BitCoin.Structs.Net
 {
 	public class NetAddr : ISerialize
 	{

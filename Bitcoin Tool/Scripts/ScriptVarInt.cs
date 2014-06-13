@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Numerics;
 
-namespace Bitcoin_Tool.Scripts
+namespace BitCoin.Scripts
 {
 	struct ScriptVarInt
 	{

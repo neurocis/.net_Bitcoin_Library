@@ -1,8 +1,8 @@
 ﻿using System;
-using Bitcoin_Tool.DataConverters;
+using BitCoin.DataConverters;
 using System.Linq;
 
-namespace Bitcoin_Tool.Crypto
+namespace BitCoin.Crypto
 {
 	public class PublicKey
 	{

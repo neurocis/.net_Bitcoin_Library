@@ -4,7 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 
-namespace Bitcoin_Tool.Structs
+namespace BitCoin.Structs
 {
 	public class Hash
 	{

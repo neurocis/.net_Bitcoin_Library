@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
-using Bitcoin_Tool.Structs;
+using BitCoin.Structs;
 
-namespace Bitcoin_Tool.Util
+namespace BitCoin.Util
 {
 
     /// <summary>

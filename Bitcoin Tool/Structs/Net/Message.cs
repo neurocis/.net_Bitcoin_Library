@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
 
-namespace Bitcoin_Tool.Structs.Net
+namespace BitCoin.Structs.Net
 {
 	public class Message : ISerialize
 	{

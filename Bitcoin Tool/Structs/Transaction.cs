@@ -4,7 +4,7 @@ using System.Linq;
 using System.IO;
 using System.Security.Cryptography;
 
-namespace Bitcoin_Tool.Structs
+namespace BitCoin.Structs
 {
 	public class Transaction : ISerialize
 	{

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace Bitcoin_Tool.Structs
+namespace BitCoin.Structs
 {
 	public interface ISerialize
 	{

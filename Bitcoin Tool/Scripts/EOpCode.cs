@@ -1,4 +1,4 @@
-﻿namespace Bitcoin_Tool.Scripts
+﻿namespace BitCoin.Scripts
 {
 	public enum OpCode : byte
 	{

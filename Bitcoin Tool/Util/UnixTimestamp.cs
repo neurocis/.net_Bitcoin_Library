@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Bitcoin_Tool.Util
+namespace BitCoin.Util
 {
 	public static class UnixTimestamp
 	{

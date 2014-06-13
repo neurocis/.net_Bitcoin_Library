@@ -4,7 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 
-namespace Bitcoin_Tool.DataConverters
+namespace BitCoin.DataConverters
 {
 	public static class Base58String
 	{

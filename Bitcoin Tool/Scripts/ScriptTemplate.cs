@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Bitcoin_Tool.Crypto;
+using BitCoin.Crypto;
 
-namespace Bitcoin_Tool.Scripts
+namespace BitCoin.Scripts
 {
 	public static class ScriptTemplate
 	{

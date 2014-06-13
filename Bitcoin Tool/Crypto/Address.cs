@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Security.Cryptography;
-using Bitcoin_Tool.Scripts;
-using Bitcoin_Tool.DataConverters;
-using Bitcoin_Tool.Structs;
+using BitCoin.Scripts;
+using BitCoin.DataConverters;
+using BitCoin.Structs;
 using System.Linq;
 
-namespace Bitcoin_Tool.Crypto
+namespace BitCoin.Crypto
 {
 	public class Address
 	{

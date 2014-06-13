@@ -7,7 +7,7 @@ using Org.BouncyCastle.Crypto.Signers;
 using Org.BouncyCastle.Crypto.Parameters;
 using System.IO;
 
-namespace Bitcoin_Tool.Crypto
+namespace BitCoin.Crypto
 {
 	public class ECKeyPair
 	{

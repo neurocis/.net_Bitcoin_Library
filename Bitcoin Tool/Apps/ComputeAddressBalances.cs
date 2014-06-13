@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Bitcoin_Tool.Crypto;
-using Bitcoin_Tool.Structs;
-using Bitcoin_Tool.Structs.Other;
+using BitCoin.Crypto;
+using BitCoin.Structs;
+using BitCoin.Structs.Other;
 
-namespace Bitcoin_Tool.Apps
+namespace BitCoin.Apps
 {
 	class ComputeAddressBalances
 	{

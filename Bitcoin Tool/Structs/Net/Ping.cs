@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace Bitcoin_Tool.Structs.Net
+namespace BitCoin.Structs.Net
 {
 	public class Ping : EmptyPayload, IPayload
 	{

@@ -5,15 +5,15 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using Bitcoin_Tool.DataConverters;
-using Bitcoin_Tool.Scripts;
-using Bitcoin_Tool.Structs;
-using Bitcoin_Tool.Structs.Net;
-using Bitcoin_Tool.Util;
+using BitCoin.DataConverters;
+using BitCoin.Scripts;
+using BitCoin.Structs;
+using BitCoin.Structs.Net;
+using BitCoin.Util;
 
-using Version = Bitcoin_Tool.Structs.Net.Version;
+using Version = BitCoin.Structs.Net.Version;
 
-namespace Bitcoin_Tool
+namespace BitCoin
 {
 	class Program
 	{

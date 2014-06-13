@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Security.Cryptography;
 
-namespace Bitcoin_Tool.DataConverters
+namespace BitCoin.DataConverters
 {
 	public static class Base58CheckString
 	{

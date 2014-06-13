@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
-using Bitcoin_Tool.Structs;
-using Bitcoin_Tool.Crypto;
+using BitCoin.Structs;
+using BitCoin.Crypto;
 
-namespace Bitcoin_Tool.Scripts
+namespace BitCoin.Scripts
 {
 	public static class SigningExtensions
 	{

@@ -5,13 +5,13 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using Bitcoin_Tool.Structs;
-using Bitcoin_Tool.DataConverters;
+using BitCoin.Structs;
+using BitCoin.DataConverters;
 
 // BROKEN/IMCOMPLETE/ABANDONED
 // Attempted to create bootstrap.dat containing no orphaned blocks
 
-namespace Bitcoin_Tool.Apps
+namespace BitCoin.Apps
 {
 	class MakeBootstrap
 	{

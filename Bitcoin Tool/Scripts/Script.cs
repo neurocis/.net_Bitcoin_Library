@@ -5,11 +5,11 @@ using System.Linq;
 using System.Numerics;
 using System.Security.Cryptography;
 using System.Text;
-using Bitcoin_Tool.DataConverters;
-using Bitcoin_Tool.Structs;
-using Bitcoin_Tool.Crypto;
+using BitCoin.DataConverters;
+using BitCoin.Structs;
+using BitCoin.Crypto;
 
-namespace Bitcoin_Tool.Scripts
+namespace BitCoin.Scripts
 {
 	public class Script
 	{

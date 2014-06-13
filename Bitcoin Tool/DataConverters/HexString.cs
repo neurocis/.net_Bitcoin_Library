@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Text;
 
-namespace Bitcoin_Tool.DataConverters
+namespace BitCoin.DataConverters
 {
 	public static class HexString
 	{

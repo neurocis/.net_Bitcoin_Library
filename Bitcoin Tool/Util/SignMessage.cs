@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Bitcoin_Tool.Crypto;
-using Bitcoin_Tool.DataConverters;
-using Bitcoin_Tool.Structs;
+using BitCoin.Crypto;
+using BitCoin.DataConverters;
+using BitCoin.Structs;
 using System.Security.Cryptography;
 
-namespace Bitcoin_Tool.Util
+namespace BitCoin.Util
 {
     public class SignMessage
     {

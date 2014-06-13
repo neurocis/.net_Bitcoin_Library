@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
-using Bitcoin_Tool.Structs;
-using Bitcoin_Tool.Structs.Other;
-using Bitcoin_Tool.Util;
+using BitCoin.Structs;
+using BitCoin.Structs.Other;
+using BitCoin.Util;
 
 // Will only work if blockchain contains no orphan blocks.
 
-namespace Bitcoin_Tool.Apps
+namespace BitCoin.Apps
 {
 	class ComputeUnspentTxOuts
 	{

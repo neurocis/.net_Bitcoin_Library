@@ -1,11 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Bitcoin_Tool.Structs;
-using Bitcoin_Tool.Scripts;
-using Bitcoin_Tool.Structs.Other;
+using BitCoin.Structs;
+using BitCoin.Scripts;
+using BitCoin.Structs.Other;
 
-namespace Bitcoin_Tool.Scripts
+namespace BitCoin.Scripts
 {
 	public static class ValidationExtensions
 	{

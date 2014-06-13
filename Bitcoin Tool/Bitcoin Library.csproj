@@ -8,8 +8,8 @@
     <ProjectGuid>{587C1610-68BC-42EB-AA47-18EE499F6378}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Bitcoin_Tool</RootNamespace>
-    <AssemblyName>Bitcoin Tool</AssemblyName>
+    <RootNamespace>BitCoin</RootNamespace>
+    <AssemblyName>bitcoin</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>

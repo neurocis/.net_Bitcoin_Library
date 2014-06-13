@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Bitcoin_Tool.Structs
+namespace BitCoin.Structs
 {
 	public class VarInt : ISerialize
 	{

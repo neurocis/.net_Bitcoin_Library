@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
-using Bitcoin_Tool.DataConverters;
+using BitCoin.DataConverters;
 
-namespace Bitcoin_Tool.Crypto
+namespace BitCoin.Crypto
 {
 	public class PrivateKey
 	{

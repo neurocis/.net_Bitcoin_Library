@@ -5,11 +5,11 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
-using Bitcoin_Tool.Structs;
-using Bitcoin_Tool.DataConverters;
-using Bitcoin_Tool.Util;
+using BitCoin.Structs;
+using BitCoin.DataConverters;
+using BitCoin.Util;
 
-namespace Bitcoin_Tool.Apps
+namespace BitCoin.Apps
 {
 	class FindFirstOrphan
 	{

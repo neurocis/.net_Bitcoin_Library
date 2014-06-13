@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.IO;
 
-namespace Bitcoin_Tool.Structs.Other
+namespace BitCoin.Structs.Other
 {
 	public class UnspentTxOutList : ISerialize, IEnumerable<KeyValuePair<TxOutId, TxOut>>
 	{

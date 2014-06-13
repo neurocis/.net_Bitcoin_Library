@@ -6,7 +6,7 @@ using System.Web.Script.Serialization;
 using System.Net;
 using System.IO;
 
-namespace Bitcoin_Tool.RPC
+namespace BitCoin.RPC
 {
 	public class BitcoinRPC
 	{

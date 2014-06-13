@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Reflection;
-using Bitcoin_Tool.Util;
+using BitCoin.Util;
 
-namespace Bitcoin_Tool.Structs.Net
+namespace BitCoin.Structs.Net
 {
 	public class Version : IPayload
 	{
