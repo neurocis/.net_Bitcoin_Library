@@ -39,7 +39,7 @@ namespace Bitcoin_Tool.Apps
 					continue;
 				lastBlockHash = null;
 
-				foreach (Transaction tx in b.txns)
+				foreach (Transaction tx in b.transactions)
 				{
 					foreach (TxIn txin in tx.inputs)
 					{
