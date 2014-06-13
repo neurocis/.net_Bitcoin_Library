@@ -8,16 +8,57 @@ namespace Bitcoin_Tool.Structs
 {
 	public class Block : ISerialize
 	{
-		public UInt32 version;
-		public Hash prev_block;
-		public Hash merkle_root;
-		public UInt32 timestamp;
-		public UInt32 bits;
-		public UInt32 nonce;
-		public VarInt tx_count { get { return new VarInt(txns.Length); } }
-		public Transaction[] txns = new Transaction[0];
 
-		private Hash _hash = null;
+        /* ********************************************************************************
+         * Property declarations
+         * ****************************************************************************** */
+        #region "Property declarations"
+
+        #region "Public Properties"
+
+        /// <summary>
+        /// Block version information, based upon the software version creating this block.
+        /// </summary>
+		public UInt32 version;
+
+        /// <summary>
+        /// The hash value of the previous block this particular block references.
+        /// </summary>
+		public Hash prev_block;
+
+        /// <summary>
+        /// The reference to a Merkle tree collection which is a hash of all transactions related to this block.
+        /// </summary>
+		public Hash merkle_root;
+        
+		/// <summary>
+		/// A timestamp recording when this block was created (Will overflow in 2106).
+		/// </summary>
+        public UInt32 timestamp;
+
+        /// <summary>
+        /// The calculated difficulty target being used for this block.
+        /// </summary>
+		public UInt32 bits;
+
+        /// <summary>
+        /// The nonce used to generate this block… to allow variations of the header and compute different hashes.
+        /// </summary>
+		public UInt32 nonce;
+
+        /// <summary>
+        /// Number of transaction entries, this value is always 0.
+        /// </summary>
+		public VarInt tx_count { get { return new VarInt(transactions.Length); } }
+
+        /// <summary>
+        /// Array containing all transactions within this block
+        /// </summary>
+		public Transaction[] transactions = new Transaction[0];
+
+        /// <summary>
+        /// Double Hashed value of the contents of this block
+        /// </summary>
 		public Hash Hash
 		{
 			get
@@ -35,64 +76,122 @@ namespace Bitcoin_Tool.Structs
 			}
 		}
 
-		protected Block()
+        #endregion "Public Properties"
+
+        #region "Private Properties"
+
+        /// <summary>
+        /// Double Hashed value of the contents of this block
+        /// </summary>
+		private Hash _hash = null;
+
+        #endregion
+
+        #endregion
+
+        /* ********************************************************************************
+         * Class constructors
+         * ****************************************************************************** */
+        #region "Class constructors"
+
+        /// <summary>
+        /// Clean initialization.
+        /// </summary>
+        protected Block()
 		{
 		}
 
-		public Block(Byte[] b)
+        /// <summary>
+        /// Initialize with a preloaded blockfile.
+        /// </summary>
+        /// <param name="byteArray">Byte array containing the block contents.</param>
+        public Block(Byte[] byteArray)
 		{
-			using (MemoryStream ms = new MemoryStream(b))
-				Read(ms);
+            using (MemoryStream _memorystream = new MemoryStream(byteArray))
+                this.Read(_memorystream);
 		}
 
-		public virtual void Read(Stream s)
+        #endregion
+
+        /* ********************************************************************************
+         * Functions
+         * ****************************************************************************** */
+        #region "Functions"
+
+        /// <summary>
+        /// Load the contents of a stream into this structure.
+        /// </summary>
+        /// <param name="streamReference">Reference to the (predefined) stream.</param>
+        public virtual void Read(Stream streamReference)
 		{
-			BinaryReader br = new BinaryReader(s);
-			version = br.ReadUInt32();
-			prev_block = br.ReadBytes(32);
-			merkle_root = br.ReadBytes(32);
-			timestamp = br.ReadUInt32();
-			bits = br.ReadUInt32();
-			nonce = br.ReadUInt32();
-			txns = new Transaction[VarInt.FromStream(s)];
-			for (int i = 0; i < txns.Length; i++)
-				txns[i] = Transaction.FromStream(s);
+            BinaryReader _binaryReader = new BinaryReader(streamReference);
+
+            version = _binaryReader.ReadUInt32();
+            prev_block = _binaryReader.ReadBytes(32);
+            merkle_root = _binaryReader.ReadBytes(32);
+            timestamp = _binaryReader.ReadUInt32();
+            bits = _binaryReader.ReadUInt32();
+            nonce = _binaryReader.ReadUInt32();
+			transactions = new Transaction[VarInt.FromStream(streamReference)];
+			for (int i = 0; i < transactions.Length; i++)
+				transactions[i] = Transaction.FromStream(streamReference);
 		}
 
-		private void WriteHeader(Stream s)
+        /// <summary>
+        /// (Re)write the header contents of this structure into a stream.
+        /// </summary>
+        /// <param name="streamReference">Reference to the (predefined) stream.</param>
+        private void WriteHeader(Stream streamReference)
 		{
-			BinaryWriter bw = new BinaryWriter(s);
-			bw.Write((UInt32)version);
-			bw.Write(prev_block, 0, 32);
-			bw.Write(merkle_root, 0, 32);
-			bw.Write((UInt32)timestamp);
-			bw.Write((UInt32)bits);
-			bw.Write((UInt32)nonce);
+            BinaryWriter _binarywriter = new BinaryWriter(streamReference);
+
+			_binarywriter.Write((UInt32)version);
+			_binarywriter.Write(prev_block, 0, 32);
+			_binarywriter.Write(merkle_root, 0, 32);
+			_binarywriter.Write((UInt32)timestamp);
+			_binarywriter.Write((UInt32)bits);
+			_binarywriter.Write((UInt32)nonce);
 		}
 
-		public virtual void Write(Stream s)
+        /// <summary>
+        /// (Re)write the contents of this structure into a stream.
+        /// </summary>
+        /// <param name="streamReference">Reference to the (predefined) stream.</param>
+        public virtual void Write(Stream streamReference)
 		{
-			BinaryWriter bw = new BinaryWriter(s);
-			WriteHeader(s);
-			tx_count.Write(s);
-			for (int i = 0; i < txns.Length; i++)
-				txns[i].Write(s);
+            this.WriteHeader(streamReference);
+            tx_count.Write(streamReference);
+
+			for (int i = 0; i < transactions.Length; i++)
+                transactions[i].Write(streamReference);
 		}
 
-		public virtual Byte[] ToBytes()
-		{
-			using (MemoryStream ms = new MemoryStream())
-			{
-				Write(ms);
-				return ms.ToArray();
-			}
-		}
+        /// <summary>
+        /// Export the contents of this structure into a byte array.
+        /// </summary>
+        /// <returns>Byte array containing the raw blockfile data.</returns>
+        public virtual Byte[] ToBytes()
+        {
+            using (MemoryStream _memorystream = new MemoryStream())
+            {
+                this.Write(_memorystream);
+                return _memorystream.ToArray();
+            }
+        }
 
-		public static Block FromStream(Stream s)
+        /// <summary>
+        /// Read the contents of a (predefined) stream into a new copy of this structure.
+        /// </summary>
+        /// <param name="streamReference">Reference to the (predefined) stream.</param>
+        /// <returns>A new copy of this structure containing the blockdata.</returns>
+        public static Block FromStream(Stream streamReference)
 		{
-			Block x = new Block();
-			x.Read(s);
-			return x;
-		}
-	}
+			Block _block = new Block();
+            _block.Read(streamReference);
+			return _block;
+        }
+
+        #endregion
+
+    }
 }
