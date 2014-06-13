@@ -6,7 +6,14 @@ using System.Security.Cryptography;
 
 namespace Bitcoin_Tool.Structs
 {
-	public class Block : ISerialize
+
+    /// <summary>
+    /// Bitcoin Blockchain datablock
+    /// </summary>
+    /// <remarks>
+    /// See https://en.bitcoin.it/wiki/Protocol_specification for more detailed information
+    /// </remarks>
+    public class Block : ISerialize
 	{
 
         /* ********************************************************************************
