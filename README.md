@@ -1,8 +1,11 @@
 Bitcoin-Tool
 ============
 
-Collection of bitcoin related classes, can be used to impliment
+Collection of bitcoin related classes (based on MB300SD's Bitcoin-Tool library), can be used to impliment
 a variety of functions.
+
+Original Discription:
+============
 
 * Work with addresses, public and private keys
 * Generate and sign transactions
@@ -10,9 +13,6 @@ a variety of functions.
 * Easily generate and evaulate custom scripts
 * Decode and encode blocks, transactions, scripts, network messages
 * Parse blockchain for data
-
-Program.cs contains test code/me playing around/etc and usually contains
-commented out code that can be used for examples.
 
 Apps directory contains mostly complete programs that use the code.
 
@@ -24,4 +24,24 @@ ComputerAddressBalances.cs uses the unspent txout list to compute a balance of a
 Use FindFirstOrphan.cs to find the file containing orphaned blocks, delete that and all subsequent 
 block files and resync bitcoind.
 
-MakeBootstrap.cs is a failed attempt at creating a bootstrap.dat blockchain without orphaned blocks.
+My Story
+============
+
+As I was searching for some usable code to learn how the whole BitCoin thing was working from the inside, I stumbled upon  MB300SD's Bitcoin-Tool project (https://github.com/mb300sd/Bitcoin-Tool). As I am a .Net developer on my day time job, this was exactly the base I was looking for.
+
+While browsing through the code and playing around with it, I started to understand what was happening and decided that instead of taking tons of notes, why not let others benefit also and start documenting into the code itself. And while doing that, also try to extend the code with the things I'm missing or would do a little bit different.
+
+My plans with this
+============
+
+As I already said, while browsing the code I was missing a few things. These things I will try to add while documenting this project.
+
+Currently on my wish/to-do list:
+* Activity/Error logging
+* Progress counters and feedback
+* Configurabillity (majority of the setting are now implemented hard-coded)
+* Reduce Bitcoin-QT/BitcoinD dependency (make it work in a stand-alone setup)
+* Setup an API documentation page
+ 
+As like the most of us, coding is my hobby and my life. But... Money is the thing that drives me... ;-P
+So feel free to stimulate me: 1EGDuyrLuyUWfCnpEwX4LZpAuuoR7dwsdd (one of my many bitcoin addresses)
