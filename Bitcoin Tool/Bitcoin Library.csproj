@@ -106,7 +106,7 @@
     <Compile Include="Structs\Hash.cs" />
     <Compile Include="Structs\Net\EInvType.cs" />
     <Compile Include="Structs\Net\IPayload.cs" />
-    <Compile Include="Structs\Other\TxOutId.cs" />
+    <Compile Include="Structs\Other\OutPoint.cs" />
     <Compile Include="Structs\Other\UnspentTxOutList.cs" />
     <Compile Include="Util\BlockFileReader.cs" />
     <Compile Include="Util\SignMessage.cs" />
