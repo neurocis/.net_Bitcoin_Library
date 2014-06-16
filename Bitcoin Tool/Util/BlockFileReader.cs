@@ -39,7 +39,7 @@ namespace BitCoin.Util
         {
             get
             {
-                return "blk" + blockFileNum.ToString("D5") + ".dat";
+                return "blk" + this.blockFileNum.ToString("D5") + ".dat";
             }
         }
 
@@ -105,8 +105,8 @@ namespace BitCoin.Util
         private void InitBlockFileReader(String file, String path)
         {
 
-            blockFileNum = 0;
-            _blockFilePath = path;
+            this.blockFileNum = 0;
+            this._blockFilePath = path;
 
             if (String.IsNullOrWhiteSpace(path))
                 _blockFilePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "Bitcoin\blocks");
@@ -114,7 +114,7 @@ namespace BitCoin.Util
                 throw new Exception("BitCoin BlockChain datafolder ('" + path + "') not found!");
 
             if (String.IsNullOrWhiteSpace(file))
-                file = _blockFileName;
+                file = this._blockFileName;
 
             String _fullPath = System.IO.Path.Combine(path, file);
             if (!System.IO.File.Exists(_fullPath))
@@ -124,11 +124,11 @@ namespace BitCoin.Util
 
         }
 
-         /// <summary>
+        /// <summary>
         /// Reads a block disk into the <seealso cref="Block_Disk">Block_Disk</seealso> structure from the active filestream and opens the next blockfile.
         /// </summary>
         /// <returns>A <seealso cref="Block_Disk"/>Block_Disk</seealso> structure containing the contents of the blockfile.</returns>
-       public Block_Disk getNext()
+        public Block_Disk getNext()
         {
             return getNext(String.Empty, String.Empty);
         }
@@ -155,23 +155,23 @@ namespace BitCoin.Util
         public Block_Disk getNext(String file, String path)
         {
             if (String.IsNullOrWhiteSpace(file))
-                file = _blockFileName;
+                file = this._blockFileName;
             if (String.IsNullOrWhiteSpace(path))
-                path = _blockFilePath;
+                path = this._blockFilePath;
 
-            while (_fileStream.Position < _fileStream.Length)
+            while (this._fileStream.Position < this._fileStream.Length)
             {
                 Block_Disk _block;
-                _block = Block_Disk.FromStream(_fileStream);
+                _block = Block_Disk.FromStream(this._fileStream);
 
                 if (_block.blockSize == 0)
                 {
-                    blockFileNum++;
+                    this.blockFileNum++;
                     try
                     {
-                        _fileStream.Close();
+                        this._fileStream.Close();
                         String _fullPath = System.IO.Path.Combine(path, file);
-                        _fileStream = new FileStream(_fullPath, FileMode.Open);
+                        this._fileStream = new FileStream(_fullPath, FileMode.Open);
                     }
                     catch (FileNotFoundException)
                     {
