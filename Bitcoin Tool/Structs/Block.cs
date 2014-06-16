@@ -56,7 +56,7 @@ namespace BitCoin.Structs
         /// <summary>
         /// Number of transaction entries, this value is always 0.
         /// </summary>
-		public VarInt tx_count { get { return new VarInt(transactions.Length); } }
+        public VarInt tx_count { get { return new VarInt(this.transactions.Length); } }
 
         /// <summary>
         /// Array containing all transactions within this block
@@ -133,15 +133,15 @@ namespace BitCoin.Structs
 		{
             BinaryReader _binaryReader = new BinaryReader(streamReference);
 
-            version = _binaryReader.ReadUInt32();
-            prev_block = _binaryReader.ReadBytes(32);
-            merkle_root = _binaryReader.ReadBytes(32);
-            timestamp = _binaryReader.ReadUInt32();
-            bits = _binaryReader.ReadUInt32();
-            nonce = _binaryReader.ReadUInt32();
-			transactions = new Transaction[VarInt.FromStream(streamReference)];
-			for (int i = 0; i < transactions.Length; i++)
-				transactions[i] = Transaction.FromStream(streamReference);
+            this.version = _binaryReader.ReadUInt32();
+            this.prev_block = _binaryReader.ReadBytes(32);
+            this.merkle_root = _binaryReader.ReadBytes(32);
+            this.timestamp = _binaryReader.ReadUInt32();
+            this.bits = _binaryReader.ReadUInt32();
+            this.nonce = _binaryReader.ReadUInt32();
+            this.transactions = new Transaction[VarInt.FromStream(streamReference)];
+            for (int i = 0; i < this.transactions.Length; i++)
+                this.transactions[i] = Transaction.FromStream(streamReference);
 		}
 
         /// <summary>
@@ -152,12 +152,12 @@ namespace BitCoin.Structs
 		{
             BinaryWriter _binarywriter = new BinaryWriter(streamReference);
 
-			_binarywriter.Write((UInt32)version);
-			_binarywriter.Write(prev_block, 0, 32);
-			_binarywriter.Write(merkle_root, 0, 32);
-			_binarywriter.Write((UInt32)timestamp);
-			_binarywriter.Write((UInt32)bits);
-			_binarywriter.Write((UInt32)nonce);
+            _binarywriter.Write((UInt32)this.version);
+            _binarywriter.Write(this.prev_block, 0, 32);
+            _binarywriter.Write(this.merkle_root, 0, 32);
+            _binarywriter.Write((UInt32)this.timestamp);
+            _binarywriter.Write((UInt32)this.bits);
+            _binarywriter.Write((UInt32)this.nonce);
 		}
 
         /// <summary>
@@ -167,10 +167,10 @@ namespace BitCoin.Structs
         public virtual void Write(Stream streamReference)
 		{
             this.WriteHeader(streamReference);
-            tx_count.Write(streamReference);
+            this.tx_count.Write(streamReference);
 
-			for (int i = 0; i < transactions.Length; i++)
-                transactions[i].Write(streamReference);
+            for (int i = 0; i < this.transactions.Length; i++)
+                this.transactions[i].Write(streamReference);
 		}
 
         /// <summary>
