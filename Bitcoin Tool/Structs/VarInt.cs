@@ -163,7 +163,7 @@ namespace BitCoin.Structs
         /// <summary>
         /// Extend the built-in operators or to provide conversion from a VarInt into the Unsigned 64bit Integer type.
         /// </summary>
-        /// <param name="i">Value of the type VarInt</param>
+        /// <param name="vi">Value of the type VarInt</param>
         /// <returns>A Unsigned 64bit Integer value</returns>
         public static implicit operator UInt64(VarInt vi)
         {
@@ -173,7 +173,7 @@ namespace BitCoin.Structs
         /// <summary>
         /// Extend the built-in operators or to provide conversion from a VarInt into the Signed 64bit Integer type.
         /// </summary>
-        /// <param name="i">Value of the type VarInt</param>
+        /// <param name="vi">Value of the type VarInt</param>
         /// <returns>A Signed 64bit Integer value</returns>
         public static implicit operator Int64(VarInt vi)
         {
