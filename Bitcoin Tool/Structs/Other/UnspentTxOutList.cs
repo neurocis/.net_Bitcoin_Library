@@ -7,10 +7,10 @@ using System.IO;
 
 namespace BitCoin.Structs.Other
 {
-	public class UnspentTxOutList : ISerialize, IEnumerable<KeyValuePair<TxOutId, TxOut>>
+	public class UnspentTxOutList : ISerialize, IEnumerable<KeyValuePair<OutPoint, TxOut>>
 	{
-		Dictionary<TxOutId, TxOut> utxo = new Dictionary<TxOutId, TxOut>();
-		List<KeyValuePair<TxOutId, TxOut>> duptxout = new List<KeyValuePair<TxOutId, TxOut>>();
+		Dictionary<OutPoint, TxOut> utxo = new Dictionary<OutPoint, TxOut>();
+		List<KeyValuePair<OutPoint, TxOut>> duptxout = new List<KeyValuePair<OutPoint, TxOut>>();
 
 		public UnspentTxOutList()
 		{
@@ -22,7 +22,7 @@ namespace BitCoin.Structs.Other
 				Read(ms);
 		}
 
-		public void Add(TxOutId h, TxOut txo)
+		public void Add(OutPoint h, TxOut txo)
 		{
 			try
 			{
@@ -31,11 +31,11 @@ namespace BitCoin.Structs.Other
 			catch (ArgumentException)
 			{
 				// Duplicate!
-				duptxout.Add(new KeyValuePair<TxOutId, TxOut>(h, txo));
+				duptxout.Add(new KeyValuePair<OutPoint, TxOut>(h, txo));
 			}
 		}
 
-		public bool TryRemove(TxOutId h)
+		public bool TryRemove(OutPoint h)
 		{
 			if (utxo.Remove(h))
 				return true;
@@ -58,16 +58,16 @@ namespace BitCoin.Structs.Other
 			UInt64 count = br.ReadUInt64();
 			for (UInt64 i = 0; i < count; i++)
 			{
-				TxOutId h = TxOutId.FromStream(s);
+				OutPoint h = OutPoint.FromStream(s);
 				TxOut t = TxOut.FromStream(s);
 				utxo.Add(h, t);
 			}
 			UInt64 dupcount = br.ReadUInt64();
 			for (UInt64 i = 0; i < dupcount; i++)
 			{
-				TxOutId h = TxOutId.FromStream(s);
+				OutPoint h = OutPoint.FromStream(s);
 				TxOut t = TxOut.FromStream(s);
-				duptxout.Add(new KeyValuePair<TxOutId, TxOut>(h, t));
+				duptxout.Add(new KeyValuePair<OutPoint, TxOut>(h, t));
 			}
 		}
 
@@ -87,13 +87,13 @@ namespace BitCoin.Structs.Other
 
 			BinaryWriter bw = new BinaryWriter(s);
 			bw.Write((UInt64)utxo.Count);
-			foreach (KeyValuePair<TxOutId, TxOut> h in utxo)
+			foreach (KeyValuePair<OutPoint, TxOut> h in utxo)
 			{
 				h.Key.Write(s);
 				h.Value.Write(s);
 			}
 			bw.Write((UInt64)duptxout.Count);
-			foreach (KeyValuePair<TxOutId, TxOut> h in duptxout)
+			foreach (KeyValuePair<OutPoint, TxOut> h in duptxout)
 			{
 				h.Key.Write(s);
 				h.Value.Write(s);
@@ -116,9 +116,9 @@ namespace BitCoin.Structs.Other
 			return x;
 		}
 
-		public IEnumerator<KeyValuePair<TxOutId, TxOut>> GetEnumerator()
+		public IEnumerator<KeyValuePair<OutPoint, TxOut>> GetEnumerator()
 		{
-			IEnumerator<KeyValuePair<TxOutId, TxOut>> e;
+			IEnumerator<KeyValuePair<OutPoint, TxOut>> e;
 			e = utxo.GetEnumerator();
 			while (e.MoveNext())
 				yield return e.Current;
@@ -129,7 +129,7 @@ namespace BitCoin.Structs.Other
 
 		IEnumerator IEnumerable.GetEnumerator()
 		{
-			IEnumerator<KeyValuePair<TxOutId, TxOut>> e;
+			IEnumerator<KeyValuePair<OutPoint, TxOut>> e;
 			e = utxo.GetEnumerator();
 			while (e.MoveNext())
 				yield return e.Current;

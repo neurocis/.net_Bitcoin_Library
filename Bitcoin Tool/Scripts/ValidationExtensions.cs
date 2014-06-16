@@ -9,14 +9,14 @@ namespace BitCoin.Scripts
 {
 	public static class ValidationExtensions
 	{
-		public static bool Validate(this Transaction tx, Dictionary<TxOutId, TxOut> prevOuts)
+		public static bool Validate(this Transaction tx, Dictionary<OutPoint, TxOut> prevOuts)
 		{
 			for (uint i = 0; i < tx.inputs.Length; i++)
 			{
 				TxIn txin = tx.inputs[i];
 			
 				Script scriptSig = new Script(txin.scriptSig);
-				Script scriptPubKey = new Script(prevOuts[new TxOutId(txin.prevOut, txin.prevOutIndex)].scriptPubKey);
+				Script scriptPubKey = new Script(prevOuts[new OutPoint(txin.prevOut, txin.prevOutIndex)].scriptPubKey);
 				
 				Script s = new Script(scriptSig, scriptPubKey);
 

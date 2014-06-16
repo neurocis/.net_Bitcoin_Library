@@ -23,7 +23,7 @@ namespace BitCoin.Examples
 				utxo = UnspentTxOutList.FromStream(fs);
 			}
 		
-			foreach (KeyValuePair<TxOutId, TxOut> txo in utxo)
+			foreach (KeyValuePair<OutPoint, TxOut> txo in utxo)
 			{
 				Address a = Address.FromScript(txo.Value.scriptPubKey);
 				if (a == null)
