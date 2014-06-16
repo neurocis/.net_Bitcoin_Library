@@ -69,8 +69,8 @@ namespace BitCoin.Structs
         public override void Read(Stream streamReference)
         {
             BinaryReader _binaryReader = new BinaryReader(streamReference);
-            magic = _binaryReader.ReadUInt32();      // Get the magic bytes
-            blockSize = _binaryReader.ReadUInt32();  // Get total number of bytes in this block
+            this.magic = _binaryReader.ReadUInt32();      // Get the magic bytes
+            this.blockSize = _binaryReader.ReadUInt32();  // Get total number of bytes in this block
             base.Read(streamReference);              // Read the remaining bytes (see Block structure)
         }
 
@@ -81,8 +81,8 @@ namespace BitCoin.Structs
         public override void Write(Stream blockFileStream)
         {
             BinaryWriter _binarywriter = new BinaryWriter(blockFileStream);
-            _binarywriter.Write((UInt32)magic);      // Set the magic bytes
-            _binarywriter.Write((UInt32)blockSize);  // Set total number of bytes in this block
+            _binarywriter.Write((UInt32)this.magic);      // Set the magic bytes
+            _binarywriter.Write((UInt32)this.blockSize);  // Set total number of bytes in this block
             base.Write(blockFileStream);             // Write the remaining bytes (see Block structure)
         }
 
