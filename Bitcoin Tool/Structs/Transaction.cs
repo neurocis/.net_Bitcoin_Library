@@ -182,10 +182,10 @@ namespace BitCoin.Structs
         /// </summary>
         /// <param name="streamReference">Reference to the (predefined) stream.</param>
         /// <returns>A new copy of this structure containing the transaction data.</returns>
-        public static Transaction FromStream(Stream s)
+        public static Transaction FromStream(Stream streamReference)
 		{
             Transaction _transaction = new Transaction();
-            _transaction.Read(s);
+            _transaction.Read(streamReference);
             return _transaction;
 		}
 
