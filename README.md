@@ -1,4 +1,4 @@
-Bitcoin-Tool
+.Net (C#) Bitcoin Library
 ============
 
 Collection of bitcoin related classes (based on MB300SD's Bitcoin-Tool library), can be used to impliment
@@ -43,5 +43,7 @@ Currently on my wish/to-do list:
 * Reduce Bitcoin-QT/BitcoinD dependency (make it work in a stand-alone setup)
 * Setup an API documentation page
  
+
 As like the most of us, coding is my hobby and my life. But... Money is the thing that drives me... ;-P
-So feel free to stimulate me: 1EGDuyrLuyUWfCnpEwX4LZpAuuoR7dwsdd (one of my many bitcoin addresses)
+
+So feel free to stimulate me:  1EGDuyrLuyUWfCnpEwX4LZpAuuoR7dwsdd
