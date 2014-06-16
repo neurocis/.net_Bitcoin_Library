@@ -10,6 +10,9 @@ namespace BitCoin.Structs
     /// <summary>
     ///  Structure of a bitcoin transaction.
     /// </summary>
+    /// <remarks>
+    /// See https://en.bitcoin.it/wiki/Protocol_specification#tx for more details
+    /// </remarks>
 	public class Transaction : ISerialize
 	{
 
