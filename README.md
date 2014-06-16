@@ -47,3 +47,21 @@ Currently on my wish/to-do list:
 As like the most of us, coding is my hobby and my life. But... Money is the thing that drives me... ;-P
 
 So feel free to stimulate me:  1EGDuyrLuyUWfCnpEwX4LZpAuuoR7dwsdd
+
+Used resources and licenses
+============
+
+This project:
+* GPLv3 - https://www.gnu.org/licenses/gpl-3.0.html
+ 
+Original:
+* Not so clear .. See https://bitcointalk.org/index.php?topic=148163.0
+* So assumed GPLv3 - https://www.gnu.org/licenses/gpl-3.0.html
+  
+Bouncy Castle C# Crypto API (https://www.bouncycastle.org/):
+* MIT X11 License - http://www.bouncycastle.org/csharp/licence.html
+
+Logo / Icon file:
+* Joe Landy - http://www.joelandy.co.uk/
+* Creative Commons Public Domain - http://creativecommons.org/publicdomain/mark/1.0/
+ 
