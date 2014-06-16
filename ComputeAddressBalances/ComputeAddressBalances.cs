@@ -6,7 +6,7 @@ using BitCoin.Crypto;
 using BitCoin.Structs;
 using BitCoin.Structs.Other;
 
-namespace BitCoin.Apps
+namespace BitCoin.Examples
 {
 	class ComputeAddressBalances
 	{

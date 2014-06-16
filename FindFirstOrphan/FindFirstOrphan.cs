@@ -9,7 +9,7 @@ using BitCoin.Structs;
 using BitCoin.DataConverters;
 using BitCoin.Util;
 
-namespace BitCoin.Apps
+namespace BitCoin.Examples
 {
 	class FindFirstOrphan
 	{

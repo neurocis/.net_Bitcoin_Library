@@ -11,7 +11,7 @@ using BitCoin.DataConverters;
 // BROKEN/IMCOMPLETE/ABANDONED
 // Attempted to create bootstrap.dat containing no orphaned blocks
 
-namespace BitCoin.Apps
+namespace BitCoin.Examples
 {
 	class MakeBootstrap
 	{

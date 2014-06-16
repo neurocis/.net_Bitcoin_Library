@@ -6,15 +6,15 @@ using BitCoin.Util;
 
 // Will only work if blockchain contains no orphan blocks.
 
-namespace BitCoin.Apps
+namespace BitCoin.Examples
 {
 	class ComputeUnspentTxOuts
 	{
 		public static void Main(string[] args)
 		{
 			string outFile = @"D:\utxo.dat";
-			
-			UnspentTxOutList utxo = new UnspentTxOutList();
+
+            UnspentTxOutList utxo = new UnspentTxOutList();
 
 			Hash lastBlockHash = null;
 
