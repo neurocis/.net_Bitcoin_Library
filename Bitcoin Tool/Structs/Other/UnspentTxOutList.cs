@@ -7,135 +7,218 @@ using System.IO;
 
 namespace BitCoin.Structs.Other
 {
+
+    /// <summary>
+    /// An enumerated list of Unspent Transaction outputs or destinations for coins.
+    /// </summary>
 	public class UnspentTxOutList : ISerialize, IEnumerable<KeyValuePair<OutPoint, TxOut>>
 	{
-		Dictionary<OutPoint, TxOut> utxo = new Dictionary<OutPoint, TxOut>();
-		List<KeyValuePair<OutPoint, TxOut>> duptxout = new List<KeyValuePair<OutPoint, TxOut>>();
 
-		public UnspentTxOutList()
+        /* ********************************************************************************
+         * Property declarations
+         * ****************************************************************************** */
+        #region "Property declarations"
+
+        #region "Private Properties"
+
+        /// <summary>
+        /// List of Unspent Transaction outputs or destinations for coins.
+        /// </summary>
+		private Dictionary<OutPoint, TxOut> _unspentTxOutList = new Dictionary<OutPoint, TxOut>();
+
+        /// <summary>
+        /// List of duplicate entries
+        /// </summary>
+        private List<KeyValuePair<OutPoint, TxOut>> _duplicateTxOutList = new List<KeyValuePair<OutPoint, TxOut>>();
+
+        #endregion
+
+        #endregion
+
+        /* ********************************************************************************
+         * Class constructors
+         * ****************************************************************************** */
+        #region "Class constructors"
+
+        /// <summary>
+        /// Clean initialization.
+        /// </summary>
+        public UnspentTxOutList()
 		{
 		}
 
-		public UnspentTxOutList(Byte[] b)
+        /// <summary>
+        /// Initialize with a preloaded range.
+        /// </summary>
+        /// <param name="byteArray">Byte array containing the range contents.</param>
+        public UnspentTxOutList(Byte[] byteArray)
 		{
-			using (MemoryStream ms = new MemoryStream(b))
-				Read(ms);
+            using (MemoryStream _memorystream = new MemoryStream(byteArray))
+				this.Read(_memorystream);
 		}
 
-		public void Add(OutPoint h, TxOut txo)
+        #endregion
+
+        /* ********************************************************************************
+         * Functions
+         * ****************************************************************************** */
+        #region "Functions"
+
+        /// <summary>
+        /// Adds a Transaction Output to this list.
+        /// </summary>
+        /// <param name="txReference">Transaction reference</param>
+        /// <param name="txOut">Transaction output contents</param>
+        /// <remarks>
+        /// If this entry allready exists in this list, it will be added to the list of suplicates.
+        /// </remarks>
+        public void Add(OutPoint txReference, TxOut txOut)
 		{
 			try
 			{
-				utxo.Add(h, txo);
+                this._unspentTxOutList.Add(txReference, txOut);
 			}
 			catch (ArgumentException)
 			{
 				// Duplicate!
-				duptxout.Add(new KeyValuePair<OutPoint, TxOut>(h, txo));
+                this._duplicateTxOutList.Add(new KeyValuePair<OutPoint, TxOut>(txReference, txOut));
 			}
 		}
 
-		public bool TryRemove(OutPoint h)
+        /// <summary>
+        /// Attempt to remove a transaction Output from this list.
+        /// </summary>
+        /// <param name="txReference">Transaction reference</param>
+        /// <returns>True if succesfully removed from this or the duplicates list, false if unsuccesful.</returns>
+        public bool TryRemove(OutPoint txReference)
 		{
-			if (utxo.Remove(h))
+            if (this._unspentTxOutList.Remove(txReference))
 				return true;
 			// Not found.. in dup?
-			int i = duptxout.FindIndex(x => x.Key.Equals(h));
+            int i = this._duplicateTxOutList.FindIndex(x => x.Key.Equals(txReference));
 			if (i >= 0)
 			{
-				duptxout.RemoveAt(i);
+                this._duplicateTxOutList.RemoveAt(i);
 				return true;
 			}
 			// Still not found...
 			return false;
 		}
 
-		public void Read(Stream s)
+        /// <summary>
+        /// Load the contents of a stream into this structure.
+        /// </summary>
+        /// <param name="streamReference">Reference to the (predefined) stream.</param>
+        public void Read(Stream streamReference)
 		{
-			utxo.Clear();
-			duptxout.Clear();
-			BinaryReader br = new BinaryReader(s);
-			UInt64 count = br.ReadUInt64();
-			for (UInt64 i = 0; i < count; i++)
+            this._unspentTxOutList.Clear();
+            this._duplicateTxOutList.Clear();
+            BinaryReader _binaryReader = new BinaryReader(streamReference);
+
+			UInt64 _count = _binaryReader.ReadUInt64();
+			for (UInt64 i = 0; i < _count; i++)
 			{
-				OutPoint h = OutPoint.FromStream(s);
-				TxOut t = TxOut.FromStream(s);
-				utxo.Add(h, t);
+                OutPoint _txReference = OutPoint.FromStream(streamReference);
+				TxOut _txOut = TxOut.FromStream(streamReference);
+                this._unspentTxOutList.Add(_txReference, _txOut);
 			}
-			UInt64 dupcount = br.ReadUInt64();
-			for (UInt64 i = 0; i < dupcount; i++)
+			
+            UInt64 _dupcount = _binaryReader.ReadUInt64();
+			for (UInt64 i = 0; i < _dupcount; i++)
 			{
-				OutPoint h = OutPoint.FromStream(s);
-				TxOut t = TxOut.FromStream(s);
-				duptxout.Add(new KeyValuePair<OutPoint, TxOut>(h, t));
+                OutPoint _txReference = OutPoint.FromStream(streamReference);
+                TxOut _txOut = TxOut.FromStream(streamReference);
+                this._duplicateTxOutList.Add(new KeyValuePair<OutPoint, TxOut>(_txReference, _txOut));
 			}
 		}
 
-		public void Write(Stream s)
+        /// <summary>
+        /// (Re)write the contents of this structure into a stream.
+        /// </summary>
+        /// <param name="streamReference">Reference to the (predefined) stream.</param>
+        public void Write(Stream streamReference)
 		{
 			// Attempt cleanup
-			for (int i = 0; i < duptxout.Count; i++)
+            for (int i = 0; i < this._duplicateTxOutList.Count; i++)
 			{
 				try
 				{
-					utxo.Add(duptxout[i].Key, duptxout[i].Value);
-					duptxout.RemoveAt(i);
+                    this._unspentTxOutList.Add(this._duplicateTxOutList[i].Key, this._duplicateTxOutList[i].Value);
+                    this._duplicateTxOutList.RemoveAt(i);
 					i = -1;
 				}
 				catch (ArgumentException) { }
 			}
 
-			BinaryWriter bw = new BinaryWriter(s);
-			bw.Write((UInt64)utxo.Count);
-			foreach (KeyValuePair<OutPoint, TxOut> h in utxo)
+            BinaryWriter _binarywriter = new BinaryWriter(streamReference);
+            _binarywriter.Write((UInt64)this._unspentTxOutList.Count);
+            foreach (KeyValuePair<OutPoint, TxOut> _entry in this._unspentTxOutList)
 			{
-				h.Key.Write(s);
-				h.Value.Write(s);
+				_entry.Key.Write(streamReference);
+				_entry.Value.Write(streamReference);
 			}
-			bw.Write((UInt64)duptxout.Count);
-			foreach (KeyValuePair<OutPoint, TxOut> h in duptxout)
+            _binarywriter.Write((UInt64)this._duplicateTxOutList.Count);
+            foreach (KeyValuePair<OutPoint, TxOut> _entry in this._duplicateTxOutList)
 			{
-				h.Key.Write(s);
-				h.Value.Write(s);
+				_entry.Key.Write(streamReference);
+				_entry.Value.Write(streamReference);
 			}
 		}
 
-		public Byte[] ToBytes()
+        /// <summary>
+        /// Export the contents of this structure into a byte array.
+        /// </summary>
+        /// <returns>Byte array containing the raw transaction output data.</returns>
+        public Byte[] ToBytes()
 		{
-			using (MemoryStream ms = new MemoryStream())
+            using (MemoryStream _memorystream = new MemoryStream())
 			{
-				Write(ms);
-				return ms.ToArray();
+				this.Write(_memorystream);
+				return _memorystream.ToArray();
 			}
 		}
 
-		public static UnspentTxOutList FromStream(Stream s)
+        /// <summary>
+        /// Read the contents of a (predefined) stream into a new copy of this structure.
+        /// </summary>
+        /// <param name="streamReference">Reference to the (predefined) stream.</param>
+        /// <returns>A new copy of this structure containing the transaction output data.</returns>
+        public static UnspentTxOutList FromStream(Stream streamReference)
 		{
-			UnspentTxOutList x = new UnspentTxOutList();
-			x.Read(s);
-			return x;
+            UnspentTxOutList _unspenttxoutlist = new UnspentTxOutList();
+			_unspenttxoutlist.Read(streamReference);
+			return _unspenttxoutlist;
 		}
 
+        /// <summary>
+        /// Gets the enumerated value
+        /// </summary>
 		public IEnumerator<KeyValuePair<OutPoint, TxOut>> GetEnumerator()
 		{
-			IEnumerator<KeyValuePair<OutPoint, TxOut>> e;
-			e = utxo.GetEnumerator();
-			while (e.MoveNext())
-				yield return e.Current;
-			e = duptxout.GetEnumerator();
-			while (e.MoveNext())
-				yield return e.Current;
+			IEnumerator<KeyValuePair<OutPoint, TxOut>> _enumerator;
+            _enumerator = this._unspentTxOutList.GetEnumerator();
+			while (_enumerator.MoveNext())
+				yield return _enumerator.Current;
+            _enumerator = this._duplicateTxOutList.GetEnumerator();
+			while (_enumerator.MoveNext())
+				yield return _enumerator.Current;
 		}
 
-		IEnumerator IEnumerable.GetEnumerator()
+        /// <summary>
+        /// Gets the enumerated value
+        /// </summary>
+        IEnumerator IEnumerable.GetEnumerator()
 		{
-			IEnumerator<KeyValuePair<OutPoint, TxOut>> e;
-			e = utxo.GetEnumerator();
-			while (e.MoveNext())
-				yield return e.Current;
-			e = duptxout.GetEnumerator();
-			while (e.MoveNext())
-				yield return e.Current;	
+            IEnumerator<KeyValuePair<OutPoint, TxOut>> _enumerator;
+            _enumerator = this._unspentTxOutList.GetEnumerator();
+			while (_enumerator.MoveNext())
+				yield return _enumerator.Current;
+            _enumerator = this._duplicateTxOutList.GetEnumerator();
+			while (_enumerator.MoveNext())
+				yield return _enumerator.Current;	
 		}
-	}
+
+        #endregion
+
+    }
 }
