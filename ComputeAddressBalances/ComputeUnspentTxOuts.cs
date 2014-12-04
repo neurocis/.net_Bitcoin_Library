@@ -12,7 +12,7 @@ namespace BitCoin.Examples
 	{
 		public static void Main(string[] args)
 		{
-			string outFile = @"D:\utxo.dat";
+			string outFile = @"C:\utxo.dat";
 
             UnspentTxOutList utxo = new UnspentTxOutList();
 
@@ -28,7 +28,9 @@ namespace BitCoin.Examples
 				}
 			}
 
-			BlockFileReader blockDb = new BlockFileReader();
+            BlockFileReader blockDb = new BlockFileReader("blkindex.dat", "C:\\Temp\\PIG");
+            //BlockFileReader blockDb = new BlockFileReader("blkindex.dat", "C:\\Users\\Neurocis\\AppData\\Roaming\\PiggyCoin");
+            
 
 			Block_Disk b;
 			Block lastBlock = null;

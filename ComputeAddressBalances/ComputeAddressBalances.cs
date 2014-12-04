@@ -16,7 +16,7 @@ namespace BitCoin.Examples
 
 			UnspentTxOutList utxo = new UnspentTxOutList();
 			Hash lastBlockHash;
-			using (FileStream fs = new FileStream(@"D:\utxo.dat", FileMode.Open))
+			using (FileStream fs = new FileStream(@"C:\utxo.dat", FileMode.Open))
 			{
 				BinaryReader br = new BinaryReader(fs);
 				lastBlockHash = br.ReadBytes(32);
@@ -33,9 +33,10 @@ namespace BitCoin.Examples
 				balances[a] += txo.Value.value;
 			}
 
-			foreach (KeyValuePair<Address, UInt64> bal in balances.AsParallel().OrderByDescending(x=>x.Value))
+            Console.WriteLine("Address,BalanceInSatoshi");
+            foreach (KeyValuePair<Address, UInt64> bal in balances.AsParallel().OrderByDescending(x => x.Value))
 			{
-				Console.WriteLine(bal.Key + "\t" + bal.Value);
+				Console.WriteLine(bal.Key + "," + bal.Value);
 			}
 		}
 	}

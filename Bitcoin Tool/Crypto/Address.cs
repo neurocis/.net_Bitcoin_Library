@@ -9,10 +9,16 @@ namespace BitCoin.Crypto
 {
 	public class Address
 	{
-		public const Byte PUBKEYHASH = 0x00;
-		public const Byte SCRIPTHASH = 0x05;
-		public const Byte PUBKEY = 0xFE;
-		public const Byte SCRIPT = 0xFF;
+        public const Byte PUBKEYHASH = 15; //PIG
+        public const Byte SCRIPTHASH = 5;  //PIG
+        //public const Byte PUBKEYHASH = 118; //PIGGY
+        //public const Byte SCRIPTHASH = 28;  //PIGGY
+        public const Byte PUBKEY = 111;
+        public const Byte SCRIPT = 196;
+        //public const Byte PUBKEYHASH = 0x00;  //BTC
+        //public const Byte SCRIPTHASH = 0x05;  //BTC
+        //public const Byte PUBKEY = 0xFE;
+		//public const Byte SCRIPT = 0xFF;
 
 		private String address = null;
 		private Hash pubKeyHash = null;
